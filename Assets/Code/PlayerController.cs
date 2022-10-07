@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 6;
+    private float speed = 8;
     public Rigidbody2D rb2D;
     private Vector2 jumpForce = new Vector2(0, 800);
     private bool canJump = true;
