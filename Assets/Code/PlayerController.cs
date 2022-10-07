@@ -6,42 +6,108 @@ public class PlayerController : MonoBehaviour
 {
     private float speed = 6;
     public Rigidbody2D rb2D;
-    private Vector2 jumpForce = new Vector2(0, 1000);
+    private Vector2 jumpForce = new Vector2(0, 800);
     private bool canJump = true;
     private bool canDoubleJump = true;
+    private Vector2 wallJumpRightForce = new Vector2(-450, 800);
+    private Vector2 wallJumpLeftForce = new Vector2(450, 800);
+    public bool CanWallJump;
+    private bool wallLeftTouch;
+    private bool wallRightTouch;
     // Start is called before the first frame update
     void Start()
     {
-
+        canJump = true;
+        canDoubleJump = true;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        bool shouldJump = (Input.GetKeyDown(KeyCode.W));
+
+            if (shouldJump && canJump)
+            {
+                rb2D.velocity = Vector2.zero;
+                rb2D.AddForce(jumpForce);
+                canJump = false;
+            }
+            else if (CanWallJump == false)
+            {
+                if (shouldJump && canDoubleJump)
+                {
+                    rb2D.velocity = Vector2.zero;
+                    rb2D.AddForce(jumpForce);
+                    canDoubleJump = false;
+                }
+            }
+            WallJumpLeft();
+            WallJumpRight();
+    }
+    void FixedUpdate()
     {
         float xMove = Input.GetAxis("MoveX");
         Vector2 newPosition = gameObject.transform.position;
         newPosition.x += xMove * speed * Time.deltaTime;
-        //newPosition.x = Mathf.Clamp(newPosition.x, -12f, 12f);
         gameObject.transform.position = newPosition;
 
-        bool shouldJump = (Input.GetKeyUp(KeyCode.Space));
-        if (shouldJump && canJump)
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        canJump = true;
+        canDoubleJump = true;
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "WallRight")
         {
-            rb2D.velocity = Vector2.zero;
-            rb2D.AddForce(jumpForce);
-            canJump = false;
+            CanWallJump = true;
+            wallRightTouch = true;
         }
-        else if (shouldJump && canDoubleJump)
+
+        if (collision.gameObject.tag == "WallLeft")
         {
-            rb2D.velocity = Vector2.zero;
-            rb2D.AddForce(jumpForce);
-            canDoubleJump = false;
+            CanWallJump = true;
+            wallLeftTouch = true;
+        }
+        Debug.Log(collision.gameObject.name);
+    }
+
+
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "WallRight")
+        {
+            CanWallJump = false;
+            wallRightTouch = false;
+        }
+
+        if (collision.gameObject.tag == "WallLeft")
+        {
+            CanWallJump = false;
+            wallLeftTouch = false;
         }
     }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+    private void WallJumpLeft()
+    {
+        bool shouldJump = (Input.GetKeyDown(KeyCode.W));
+        if (shouldJump && canDoubleJump && CanWallJump && wallLeftTouch)
         {
-            canJump = true;
-            canDoubleJump = true;
+            rb2D.velocity = Vector2.zero;
+            rb2D.AddForce(wallJumpLeftForce);
+            CanWallJump = false;
         }
+    }
+    private void WallJumpRight()
+    {
+        bool shouldJump = (Input.GetKeyDown(KeyCode.W));
+        if (shouldJump && canDoubleJump && CanWallJump && wallRightTouch)
+        {
+            rb2D.velocity = Vector2.zero;
+            rb2D.AddForce(wallJumpRightForce);
+            CanWallJump = false;
+        }
+    }
 }
