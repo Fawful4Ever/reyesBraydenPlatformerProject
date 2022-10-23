@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,25 +16,32 @@ public class PlayerController : MonoBehaviour
     public bool CanWallJump;
     private bool wallLeftTouch;
     private bool wallRightTouch;
+    public float Health = 5;
+    public TMP_Text HealthText;
+    public static bool Dead = false;
+    public static bool SwitchOn = false;
     // Start is called before the first frame update
     void Start()
     {
         canJump = true;
         canDoubleJump = true;
+        //Application.targetFrameRate = 10;
     }
 
     // Update is called once per frame
     private void Update()
     {
         bool shouldJump = (Input.GetKeyDown(KeyCode.W));
-
-            if (shouldJump && canJump)
+            
+            //Jump
+            if (shouldJump && canJump && Dead == false)
             {
                 rb2D.velocity = Vector2.zero;
                 rb2D.AddForce(jumpForce);
                 canJump = false;
             }
-            else if (CanWallJump == false)
+            //Double Jump
+            else if (CanWallJump == false && Dead == false)
             {
                 if (shouldJump && canDoubleJump)
                 {
@@ -46,17 +55,38 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        float xMove = Input.GetAxis("MoveX");
-        Vector2 newPosition = gameObject.transform.position;
-        newPosition.x += xMove * speed * Time.deltaTime;
-        gameObject.transform.position = newPosition;
+        if (Dead == false)
+        {
+            float xMove = Input.GetAxis("MoveX");
+            Vector2 newPosition = gameObject.transform.position;
+            newPosition.x += xMove * speed * Time.deltaTime;
+            gameObject.transform.position = newPosition;
+        }
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        canJump = true;
-        canDoubleJump = true;
+        if (Dead == false)
+        {
+            if (collision.gameObject.tag == "Hazard")
+            {
+                TakeDamage();
+            }
+            if (collision.gameObject.tag == "Water")
+            {
+                Death();
+            }
+            if (collision.gameObject.tag == "RefreshJump")
+            {
+                canJump = true;
+                canDoubleJump = true;
+            }
+            if (collision.gameObject.tag == "Switch")
+            {
+                SwitchOn = true;
+            }
+        }
     }
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -93,7 +123,7 @@ public class PlayerController : MonoBehaviour
     private void WallJumpLeft()
     {
         bool shouldJump = (Input.GetKeyDown(KeyCode.W));
-        if (shouldJump && canDoubleJump && CanWallJump && wallLeftTouch)
+        if (shouldJump && CanWallJump && wallLeftTouch && Dead == false)
         {
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce(wallJumpLeftForce);
@@ -103,11 +133,27 @@ public class PlayerController : MonoBehaviour
     private void WallJumpRight()
     {
         bool shouldJump = (Input.GetKeyDown(KeyCode.W));
-        if (shouldJump && canDoubleJump && CanWallJump && wallRightTouch)
+        if (shouldJump && CanWallJump && wallRightTouch && Dead == false)
         {
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce(wallJumpRightForce);
             CanWallJump = false;
         }
+    }
+    public void TakeDamage()
+    {
+        Health -= 1;
+        HealthText.text = "HP = " + Health;
+        if (Health <= 0)
+        {
+            Death();
+        }
+    }
+
+    public void Death()
+    {
+        Health = 0;
+        HealthText.text = "HP = " + Health;
+        Dead = true;
     }
 }

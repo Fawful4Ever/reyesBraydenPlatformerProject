@@ -7,6 +7,11 @@ TagManager:
   - Wall
   - WallRight
   - WallLeft
+  - Hazard
+  - Water
+  - RefreshJump
+  - HealthText
+  - Switch
   layers:
   - Default
   - TransparentFX
@@ -43,4 +48,28 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3825477611
+    locked: 0
+  - name: Hazard
+    uniqueID: 2682684535
+    locked: 0
+  - name: Structure
+    uniqueID: 65021593
+    locked: 0
+  - name: SwitchOff
+    uniqueID: 2210361785
+    locked: 0
+  - name: SwitchOn
+    uniqueID: 1642552497
+    locked: 0
+  - name: Tutorial
+    uniqueID: 3572214509
+    locked: 0
+  - name: Player
+    uniqueID: 1648866691
+    locked: 0
+  - name: Water
+    uniqueID: 795138719
     locked: 0
