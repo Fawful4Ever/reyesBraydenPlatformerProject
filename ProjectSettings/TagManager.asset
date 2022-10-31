@@ -12,6 +12,7 @@ TagManager:
   - RefreshJump
   - HealthText
   - Switch
+  - RefreshDoubleJump
   layers:
   - Default
   - TransparentFX
@@ -52,11 +53,11 @@ TagManager:
   - name: Background
     uniqueID: 3825477611
     locked: 0
-  - name: Hazard
-    uniqueID: 2682684535
-    locked: 0
   - name: Structure
     uniqueID: 65021593
+    locked: 0
+  - name: SwitchBackground
+    uniqueID: 2161379187
     locked: 0
   - name: SwitchOff
     uniqueID: 2210361785
@@ -70,6 +71,9 @@ TagManager:
   - name: Player
     uniqueID: 1648866691
     locked: 0
+  - name: Hazard
+    uniqueID: 2682684535
+    locked: 0
   - name: Water
-    uniqueID: 795138719
+    uniqueID: 971144243
     locked: 0

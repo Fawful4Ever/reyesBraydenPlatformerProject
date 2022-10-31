@@ -8,11 +8,11 @@ public class PlayerController : MonoBehaviour
 {
     private float speed = 8;
     public Rigidbody2D rb2D;
-    private Vector2 jumpForce = new Vector2(0, 800);
+    private Vector2 jumpForce = new Vector2(0, 600);
     private bool canJump = true;
-    private bool canDoubleJump = true;
-    private Vector2 wallJumpRightForce = new Vector2(-450, 800);
-    private Vector2 wallJumpLeftForce = new Vector2(450, 800);
+    private bool canDoubleJump = false;
+    private Vector2 wallJumpRightForce = new Vector2(-450, 600);
+    private Vector2 wallJumpLeftForce = new Vector2(450, 600);
     public bool CanWallJump;
     private bool wallLeftTouch;
     private bool wallRightTouch;
@@ -20,12 +20,14 @@ public class PlayerController : MonoBehaviour
     public TMP_Text HealthText;
     public static bool Dead = false;
     public static bool SwitchOn = false;
+    public Rigidbody2D Player;
+    public GameObject DeathScreen;
     // Start is called before the first frame update
     void Start()
     {
         canJump = true;
-        canDoubleJump = true;
-        //Application.targetFrameRate = 10;
+        canDoubleJump = false;
+
     }
 
     // Update is called once per frame
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour
         bool shouldJump = (Input.GetKeyDown(KeyCode.W));
             
             //Jump
-            if (shouldJump && canJump && Dead == false)
+            if (CanWallJump == false && shouldJump && canJump && Dead == false)
             {
                 rb2D.velocity = Vector2.zero;
                 rb2D.AddForce(jumpForce);
@@ -78,6 +80,10 @@ public class PlayerController : MonoBehaviour
                 Death();
             }
             if (collision.gameObject.tag == "RefreshJump")
+            {
+                canJump = true;
+            }
+            if (collision.gameObject.tag == "RefreshDoubleJump")
             {
                 canJump = true;
                 canDoubleJump = true;
@@ -154,6 +160,9 @@ public class PlayerController : MonoBehaviour
     {
         Health = 0;
         HealthText.text = "HP = " + Health;
+        DeathScreen.SetActive(true);
         Dead = true;
     }
+
+    
 }
