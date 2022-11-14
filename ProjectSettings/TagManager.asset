@@ -74,6 +74,9 @@ TagManager:
   - name: Hazard
     uniqueID: 2682684535
     locked: 0
+  - name: Wall
+    uniqueID: 1326987015
+    locked: 0
   - name: Water
     uniqueID: 971144243
     locked: 0
