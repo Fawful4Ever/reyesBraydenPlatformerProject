@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool Moving;
     private Animator animator;
     public AudioClip Damage;
+    public AudioClip Jump;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +73,7 @@ public class PlayerController : MonoBehaviour
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce(jumpForce);
             canJump = false;
+            AudioSource.PlayClipAtPoint(Jump, Camera.main.transform.position);
         }
         //Double Jump
         else if (CanWallJump == false && Dead == false)
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour
                 rb2D.velocity = Vector2.zero;
                 rb2D.AddForce(jumpForce);
                 canDoubleJump = false;
+                AudioSource.PlayClipAtPoint(Jump, Camera.main.transform.position);
             }
         }
         WallJumpLeft();
@@ -166,6 +169,7 @@ public class PlayerController : MonoBehaviour
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce(wallJumpLeftForce);
             CanWallJump = false;
+            AudioSource.PlayClipAtPoint(Jump, Camera.main.transform.position);
         }
     }
     private void WallJumpRight()
@@ -176,6 +180,7 @@ public class PlayerController : MonoBehaviour
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce(wallJumpRightForce);
             CanWallJump = false;
+            AudioSource.PlayClipAtPoint(Jump, Camera.main.transform.position);
         }
     }
     public void TakeDamage()

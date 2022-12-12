@@ -16,6 +16,11 @@ public class MainMenuController : MonoBehaviour
         {
             Application.Quit();
         }
+
+        if (Input.GetKey(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
     public void StartGame()
     {

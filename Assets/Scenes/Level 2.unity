@@ -5873,6 +5873,7 @@ MonoBehaviour:
   SpriteFlipper: {fileID: 337514567}
   Moving: 0
   Damage: {fileID: 8300000, guid: 88b1cbe3caa3fee4b8b103b5edd7aba9, type: 3}
+  Jump: {fileID: 8300000, guid: 2b21ef916f6943c439b71a7c74568878, type: 3}
 --- !u!50 &337514565
 Rigidbody2D:
   serializedVersion: 4
@@ -5980,7 +5981,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337514563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0573, y: 0.1876, z: 0}
+  m_LocalPosition: {x: 0.0573, y: 0.35, z: 0}
   m_LocalScale: {x: 2.0995173, y: 2.0995173, z: 4.1990347}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16775,6 +16776,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1430361284}
     m_Modifications:
+    - target: {fileID: 133916264772885452, guid: e2a62588752160346b774cd3ce7ee6b2, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 133916264772885452, guid: e2a62588752160346b774cd3ce7ee6b2, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1612282761
+      objectReference: {fileID: 0}
     - target: {fileID: 9205150442763489997, guid: e2a62588752160346b774cd3ce7ee6b2, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -18261,7 +18270,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7ab3c03bc2c72444aae8932ccc6ca97d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -23300,7 +23309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3102042066901190733, guid: 9ceddabd6cda5fa45b89d6680be04b6b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 25.14
+      value: 25.205
       objectReference: {fileID: 0}
     - target: {fileID: 3102042066901190733, guid: 9ceddabd6cda5fa45b89d6680be04b6b, type: 3}
       propertyPath: m_LocalPosition.z

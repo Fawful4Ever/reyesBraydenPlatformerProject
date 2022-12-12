@@ -80,3 +80,6 @@ TagManager:
   - name: Water
     uniqueID: 971144243
     locked: 0
+  - name: OutsideGame
+    uniqueID: 2010217479
+    locked: 0
